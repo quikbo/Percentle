@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask,  render_template
 
 app = Flask(__name__)
 
 #setting up a route to countries.html
-@app.route('/countries')
+@app.route('/')
 def countries():
     return render_template('countries.html')
 

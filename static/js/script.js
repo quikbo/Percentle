@@ -10,22 +10,14 @@ document.addEventListener("DOMContentLoaded", function(){
     var header = document.getElementById("daily_letter");
     var daily_letter = getRandomChar();
     header.textContent = "Letter: " + daily_letter;
-
-    //code to obtain array list of valid guesses
-    fetch('/get-data')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);  // Process the countries list here
-            validGuesses = data;
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    
 
     //function for obtaining the data from user guess submissions
     document.getElementById("countries_guess").addEventListener('submit', function(event) {
         event.preventDefault();
         var formData = new FormData(this)
         var formDataString = JSON.stringify(Object.fromEntries(formData));
-        if (validGuesses.includes(formData)) {
+        if ('databases/countries.txt'.includes(formData)) {
             HandleInput(formDataString);
         }
     });
@@ -62,4 +54,16 @@ async function fetchData() {
         console.error('Error fetching data:', error);
     }
 }
+
+
+//*
+    //code to obtain array list of valid guesses
+    fetch('/get-data')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);  // Process the countries list here
+            validGuesses = data;
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    
 **/
