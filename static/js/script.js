@@ -10,23 +10,44 @@ document.addEventListener("DOMContentLoaded", function(){
     var header = document.getElementById("daily_letter");
     var daily_letter = getRandomChar();
     header.textContent = "Letter: " + daily_letter;
+
+    var validGuesses = []
+    fetch('/get_data') //this part works good
+        .then(response => response.json())
+        .then(data => {
+            validGuesses = data;
+        })
+        .catch(error => console.error('Error fetching data:', error));
     
 
     //function for obtaining the data from user guess submissions
     document.getElementById("countries_guess").addEventListener('submit', function(event) {
         event.preventDefault();
         var formData = new FormData(this)
-        var formDataString = JSON.stringify(Object.fromEntries(formData));
-        if ('databases/countries.txt'.includes(formData)) {
-            HandleInput(formDataString);
+        var formDataObject = Object.fromEntries(formData);
+        if (validGuesses.includes(formDataObject.guess)) {
+            HandleInput(formDataObject.guess, daily_letter);
+        } else {
+            console.log('Invalid guess, try again')
         }
     });
 });
 
 
-//handling the user's guess: see's if its a valid guess and then evaluates if its correct
-async function HandleInput(input) {
-    console.log('valid')
+//sends user's guess and letter to flask file through POST request
+function HandleInput(input, letter) {
+    const dataToSend = { guess: input, daily_letter : letter };
+
+    fetch('/post_data', {
+        method: 'POST',  // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),  // Convert data to JSON string
+    })
+        .then(response => response.json())  // Parse JSON response
+        .then(data => console.log(data))  // Do something with the response
+        .catch(error => console.error('Error:', error));
 }
 
 /** 
@@ -58,12 +79,6 @@ async function fetchData() {
 
 //*
     //code to obtain array list of valid guesses
-    fetch('/get-data')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);  // Process the countries list here
-            validGuesses = data;
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    
     
 **/
