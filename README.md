@@ -12,3 +12,7 @@ goal for 03/29/24:
     Implemented two RESTful API routes, GET for validating if guesses are even in the pool of guessable
     words (error message pops up in console but next session will have javascript create an html error
     message), and POST for sending guessed word and the daily letter to python server for handling
+
+04/03:
+    added route for getting top5 list into script. still need to have JS make error messages for inputs
+    and want to make the length of top5 list affect html for answer boxes.
