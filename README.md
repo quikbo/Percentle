@@ -16,3 +16,7 @@ goal for 03/29/24:
 04/03:
     added route for getting top5 list into script. still need to have JS make error messages for inputs
     and want to make the length of top5 list affect html for answer boxes.
+
+04/04:
+    saved top5list in a promise and handled input validation: now need to 
+    make result of validation affect html structures on screen 
