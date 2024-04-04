@@ -10,16 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
     var header = document.getElementById("daily_letter");
     var daily_letter = getRandomChar();
     header.textContent = "Letter: " + daily_letter;
-
-  
-    //var top5 = sendLetter(daily_letter); //calls method to send daily letter to Flask script to then 
-    //also obtains top5 list for that letter
-    sendLetter(daily_letter).then(data => {
-        var top5 = data;
-    }).catch(error => {
-        console.error(error);  // Handle any errors
-    });
-
+    const top5Promise = sendLetter(daily_letter); //collects the top5 in a promise to be used later
 
     var validGuesses = [] //obtains what guesses could be valid for handling user guess input
     fetch('/get_valid') //this part works good
@@ -35,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
         var formData = new FormData(this)
         var formDataObject = Object.fromEntries(formData);
         if (validGuesses.includes(formDataObject.guess)) {
-            HandleInput(formDataObject.guess);
+            HandleInput(formDataObject.guess, top5Promise);
         } else {
             console.log('Invalid guess, try again')
         }
@@ -69,51 +60,21 @@ async function sendLetter(input) {
 }
 
 //sends user's guess and letter to flask file through POST request
-function HandleInput(input) {
-    const dataToSend = { guess: input};
+function HandleInput(input, top5Promise) {
 
-    fetch('/post_guess', {
-        method: 'POST',  // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend),  // Convert data to JSON string
-    })
-        .then(response => response.json())  // Parse JSON response
-        .then(data => console.log(data))  // Do something with the response
-        .catch(error => console.error('Error:', error));
-    
-}
+    top5Promise.then(top5 => {
+        console.log(top5)
 
-/** 
-//isValid grabs list of possible countries from fetchData function and returns true if input is present
-async function isValid(input) {
-    const data = await fetchData();
-    return data.includes(input);
-}
-
-async function fetchData() {
-    try {
-        // Use the Fetch API to send the request
-        const response = await fetch('/get_data');
-
-        // Check if the request was successful
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        for (let i = 0; i < top5.length; i++) {
+            if (input == top5[i][0]) {
+                console.log('correct! ', (i + 1) , '. ', top5[i][0], ' ', top5[i][1])
+                return
+            }
         }
+        console.log('wrong')
+        return
+    }).catch(error => {
+        console.error(error);  // Handle errors
+    });
 
-        // Parse the JSON response
-        const data = await response.json();
-        return data; 
-
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
 }
-
-
-//*
-    //code to obtain array list of valid guesses
-    
-    
-**/

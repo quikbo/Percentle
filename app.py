@@ -17,13 +17,6 @@ def GET_guesses_list():
     data = [x.strip() for x in validGuessesList]
     return jsonify(data)
 
-@app.route('/post_guess', methods=['POST'])
-def POST_guesses():
-    data_received = request.json
-    guess = data_received['guess']
-    print(guess)
-    return jsonify({'status' : 'success'})
-
 @app.route('/letter_route', methods=['POST'])
 def letter_route():
     data = request.json
