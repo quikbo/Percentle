@@ -33,21 +33,8 @@ def l_pct_letter(data):
 
 
 if __name__ == "__main__":
-    #if input data(argv[1]) and output (argv[2])
-    if len(sys.argv) == 3:
-        f = open(sys.argv[1],"r")
-        data = f.readlines()
-        print(h_pct_letter(data))
-        #p.file_write(h_pct_letter(data), sys.argv[2])
-        
-    #if only input (argv[1])
-    elif len(sys.argv) == 2:
-        f = open(sys.argv[1],"r")
-        data = f.readlines()
-        print(h_pct_letter(data))
+    f = open(sys.argv[1],"r")
+    data = f.readlines()
+    list_word_percentage_tuples_a_to_z = h_pct_letter(data)
+    print(len(list_word_percentage_tuples_a_to_z))
     
-    #if no command line arguments
-    else:
-        f = open("countries.txt", "r")
-        data = f.readlines()
-        p.print_le(h_pct_letter(data))
