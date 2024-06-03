@@ -11,16 +11,14 @@
         <img src="../static/images/title.png" alt="Percentle %" width="25%" class="center"/>
     </header>
     <h2 id="category">Countries</h2>
-    <h3 class="red_header" id="daily_letter">Letter: A</h3>
-    <ol>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ol>
+    <!--lets use a jinja expression to insert a randomized letter sent over from app.py-->
+        <h3 class="red_header" id="daily_letter">Letter: </h3> 
+    <!--insert jinja for loop to customize length of answer list--> 
+        <ol>
+            <li></li>
+        </ol>
     <br>    
-    <form id="countries_guess" class="center">  
+    <form id="countries_guess" class="center" method="post">  
         <label class="text" for="guess">Guess:</label>
         <input type="text" id="guess" name="guess"> 
         <input type="submit" value="Submit" class="text">

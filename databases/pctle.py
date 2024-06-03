@@ -1,4 +1,6 @@
 import sys
+print(sys.path)
+sys.path.append('/Users/williamboudy/Desktop/programs/Percentle/databases')
 import pctle_funcs as p
 
 #returns sorted list of dicts based on highest letters in country name

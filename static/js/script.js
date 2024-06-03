@@ -1,4 +1,6 @@
 
+//CAN CUT MOST OF THIS OUT ONCE APP.PY UPDATED
+
 //function for randomizing the daily letter
 document.addEventListener("DOMContentLoaded", function(){
     //this block of code sets a random daily letter on the html headers
@@ -63,7 +65,6 @@ async function sendLetter(input) {
 function HandleInput(input, top5Promise) {
 
     top5Promise.then(top5 => {
-        console.log(top5)
 
         for (let i = 0; i < top5.length; i++) {
             if (input == top5[i][0]) {
