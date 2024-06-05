@@ -8,7 +8,7 @@
 </head>
 <body>
     <header class="center">
-        <img src="../static/images/title.png" alt="Percentle %" width="25%"/>
+        <img src="../static/images/title.png" alt="Percentle %" width="22%"/>
     </header>
     <h2 class="category">Countries</h2>
     <!--lets use a jinja expression to insert a randomized letter sent over from app.py-->
@@ -18,14 +18,27 @@
             {% for item in top5 %}
                 <li>
                     {% if item[2] %}
-                        {{ item[0] }} {{ item[1] }}
+                    {{ item[0] ~ ' - ' ~ item[1] ~ '%' }}
                     {% endif %}
                 </li>
             {% endfor %}
-        </ol>  
+        </ol>
+    <div class="mistakes center">
+        <h3 class="mistakes-heading">Mistakes: 
+            <span class="tally-marks">
+                {% for mistake in mistakes %}
+                    {% if ((loop.index0 + 1) % 5 == 0) %}
+                        <span class="diagonal-tally"></span>
+                    {% else %} 
+                        <span class="tally"></span>
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </h3>
+    </div>  
     <div class="form-container">
         <form class="center" method="post" action="/submit">  
-            <label class="text" for="guess">Guess:</label>
+            <label class="text" for="guess">Guess</label>
             <input type="text" id="guess" name="guess"> 
             <input type="submit" value="Submit" class="text">
         </form>  

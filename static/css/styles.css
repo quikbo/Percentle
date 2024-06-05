@@ -7,34 +7,15 @@
     font: 75% georgia, sans-serif;
     color: #9A2727;
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .category {
     font: 75% georgia, sans-serif;
-    font-size: 40px;
+    font-size: 35px;
     color: #9A2727;
     text-align: center;
 }
-
-/*
-ol {
-    list-style-position: outside;
-    width: 25%;
-    margin-left: 34%;
-    margin-right: auto;
-}
-
-ol li {
-    text-align: center;
-    font: 75% georgia, sans-serif;
-    color: #545151;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    border: 1px solid midnightblue;
-}
-*/
-
 
 ol {
     list-style: none; /* Remove default list styling */
@@ -46,8 +27,8 @@ ol {
 
 /* List Items */
 ol li {
-    text-align: left; /* Align text to the left for better readability */
-    font: 20px 'Georgia', serif; /* Use a more readable font size */
+    text-align: center; /* Align text to the left for better readability */
+    font: 22px 'Georgia', serif; /* Use a more readable font size */
     color: #333; /* Use a slightly darker color for better contrast */
     padding: 20px 25px; /* Add padding for better spacing */
     margin-bottom: 10px; /* Add margin between items for separation */
@@ -66,7 +47,7 @@ ol li:before {
     top: 50%; /* Center the counter vertically */
     transform: translateY(-50%); /* Adjust for perfect centering */
     font-weight: bold; /* Make the counter bold */
-    font-size: 24px; /* Increase the counter font size */
+    font-size: 20px; /* Increase the counter font size */
     color: #ff6600; /* Use a contrasting color for the counter */
 }
 
@@ -74,7 +55,7 @@ ol li:before {
 /* Form Container */
 .form-container {
     max-width: 400px;
-    margin: 50px auto;
+    margin: auto; 
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -126,4 +107,53 @@ ol li:before {
 /* Submit Button Hover */
 .form-container input[type="submit"]:hover {
     background-color: #e65c00;
+}
+
+
+/* Mistakes section */
+.mistakes {
+    text-align: center;
+}
+
+.mistakes-heading {
+    font: 22px 'Georgia', serif;
+    font-weight: bold;
+    color: #9A2727;
+}
+
+
+/* Tally Marks */
+.tally-marks {
+    display: inline-block;
+}
+
+.tally {
+    width: 2px;
+    height: 20px;
+    background-color: red;
+    margin-right: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tally-group {
+    display: inline-block;
+    position: relative;
+    padding-right: 10px;
+}
+
+.tally-group {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px; /* Adjust space between groups */
+}
+
+.diagonal-tally {
+    position: absolute;
+    width: 20px; /* Length of the diagonal line */
+    height: 2px;
+    background-color: red;
+    transform: rotate(-45deg);
+    top: 10px; /* Adjust to center the line */
+    left: -3px; /* Adjust to align with tallies */
 }

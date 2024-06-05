@@ -1,10 +1,14 @@
-from flask import Flask,  render_template, jsonify, request, json
+from flask import Flask, render_template, request, session, flash
+from flask_session import Session
 import sys
 sys.path.append('/Users/williamboudy/Desktop/programs/Percentle/databases')
 import pctle # type: ignore
 import random
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Needed for session management
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 #HELPER FUNCTIONS
 
@@ -49,17 +53,35 @@ def home_page():
 #renders the html with the daily letter
 @app.route('/countries')
 def countries():
-    return render_template('countries.html', daily_letter = f"Letter: {randChar}", top5 = top5CountryPercentageGuessBool)
+    session['mistakes'] = []
+    session['guesses'] = []
+    return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
 
-
+## i wonder if i need to send all the information every time i run render template, especially parts that aren't dynamic 
+## like  top5 and daily letter 
 @app.route('/submit', methods=['POST'])
 def submit(): #make this function grab guess from html file and handle it
     guess = request.form['guess']
-    print(guess)
-    for x in range(len(top5CountryPercentageGuessBool)):
-         if top5CountryPercentageGuessBool[x][0] == guess: #indexing every country's name in list 
-              top5CountryPercentageGuessBool[x][2] = True
-    return render_template('countries.html', daily_letter = f"Letter: {randChar}", top5=top5CountryPercentageGuessBool)
+    if guess in session['guesses']:
+         flash('Already guessed!')
+         return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
+    elif guess not in validGuesses:
+         flash('Not a valid guess!')
+         return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
+    else:
+        session['guesses'].append(guess)
+        print(guess)
+        for x in range(len(top5CountryPercentageGuessBool)):
+            if top5CountryPercentageGuessBool[x][0] == guess: #indexing every country's name in list 
+                top5CountryPercentageGuessBool[x][2] = True
+                return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
+        session['mistakes'].append('X')
+        return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
 
 
 
