@@ -65,12 +65,8 @@ def submit(): #make this function grab guess from html file and handle it
     guess = request.form['guess']
     if guess in session['guesses']:
          flash('Already guessed!')
-         return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
-                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
     elif guess not in validGuesses:
          flash('Not a valid guess!')
-         return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
-                           top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
     else:
         session['guesses'].append(guess)
         print(guess)
@@ -80,7 +76,7 @@ def submit(): #make this function grab guess from html file and handle it
                 return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
                            top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
         session['mistakes'].append('X')
-        return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
+    return render_template('countries.html', daily_letter = f"Letter: {randChar}", \
                            top5=top5CountryPercentageGuessBool, mistakes = session['mistakes'])
 
 
