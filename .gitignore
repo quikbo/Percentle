@@ -1,8 +1,8 @@
 # Flask session files
 flask_session/
 
-# Environment variables
-.env
+# Modules and extra data files
+modules/
 
 # Python artifacts
 __pycache__/
@@ -15,3 +15,4 @@ venv/
 env/
 
 
+#git rm -r --cached flask_session //use this command to remove anything accidently pushed through git
