@@ -1,6 +1,5 @@
 # Flask session files
 flask_session/
-*.session
 
 # Environment variables
 .env
